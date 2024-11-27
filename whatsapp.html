@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Viewer</title>
+    <style>
+        /* Basic styling */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            font-family: Arial, sans-serif;
+        }
+
+        .photo-container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .photo-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .photo-container h2 {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .photo-container p {
+            margin-top: 8px;
+            color: #555;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="photo-container">
+        <img id="photo" src="whatsapp.jpg" alt="Beautiful Scenery">
+        <h2>Whatsapp qr code</h2>
+        <p></p>
+    </div>
+
+    <script>
+        // JavaScript logic (if needed)
+        // Example: Dynamically updating the photo (optional)
+        const photo = document.getElementById("photo");
+        setTimeout(() => {
+            photo.src = "https://via.placeholder.com/600x400/87CEEB/333?text=New+Photo";
+            photo.alt = "New Beautiful Scenery";
+        }, 5000); // Changes the photo after 5 seconds
+    </script>
+</body>
+</html>
+ 
