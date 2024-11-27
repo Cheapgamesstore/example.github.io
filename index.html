@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            color: #000;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: #000;
+            text-align: center;
+            padding: 60px 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 60px;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #000;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007BFF;
+        }
+
+        nav a[data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+        }
+
+        nav a i {
+            margin-right: 8px;
+        }
+
+        /* Shop Now Section */
+        .shop-now-section {
+            background: url('https://via.placeholder.com/1920x600/fff/000?text=') center/cover no-repeat;
+            text-align: center;
+            color: #000;
+            padding: 150px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-now-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 1;
+        }
+
+        .shop-now-section h2 {
+            font-size: 52px;
+            font-weight: 800;
+            color: #007BFF;
+            position: relative;
+            z-index: 2;
+        }
+
+        .shop-now-button {
+            padding: 15px 50px;
+            background: #000;
+            color: #fff;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            position: relative;
+            z-index: 2;
+            transition: background 0.3s;
+        }
+
+        .shop-now-button:hover {
+            background: #0056b3;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 50px 20px;
+        }
+
+        .product-card {
+            background: #f5f5f5;
+            border-radius: 12px;
+            width: calc(25% - 20px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 450px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #000;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: #007BFF;
+        }
+
+        .buy-now {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .buy-now:hover {
+            background: #0056b3;
+        }
+
+        /* Enhanced Hot Strip */
+        .hot-strip {
+            position: absolute;
+            top: 10px;
+            left: -10px;
+            background: linear-gradient(45deg, #ff0000, #ff5500);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 5px;
+            z-index: 10;
+            text-transform: uppercase;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transform: rotate(-10deg);
+            transition: all 0.3s ease;
+        }
+
+        .hot-strip:hover {
+            background: linear-gradient(45deg, #ff5500, #ff0000);
+            transform: rotate(-5deg) scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #f5f5f5;
+            padding: 40px 20px;
+            text-align: center;
+            color: #555;
+        }
+
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer .social-icons i {
+            font-size: 30px;
+            margin: 0 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: #555;
+        }
+
+        .footer .social-icons i:hover {
+            color: #007BFF;
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: calc(50% - 20px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: 100%;
+            }
+        }
+
+        /* Floating Symbol */
+        .floating-symbol {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: #007BFF;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 1000;
+    overflow: hidden; /* Ensures the image stays circular */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.floating-symbol img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image scales nicely */
+    border-radius: 50%; /* Ensures the image itself is circular */
+    transition: transform 0.3s;
+}
+
+.floating-symbol:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Game Store</h1>
+    </header>
+
+    <nav>
+        <a href="#home"><i class="fas fa-home"></i>Home</a>
+        <a href="games.html" data-tooltip="Browse all games"><i class="fas fa-gamepad"></i>Games</a>
+        <a href="https://www.instagram.com/anshul_store/" data-tooltip="Get in touch"><i class="fas fa-envelope"></i>Contact</a>
+    </nav>
+
+    <div class="shop-now-section">
+        <h2>Welcome to the Anshulstore</h2>
+        <a href="games.html" class="shop-now-button">
+            <button class="shop-now-button">Shop Now</button>
+        </a>
+    </div>
+    
+
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="hot-strip">HOT</div>
+            <img src="Call of Duty Black Ops 6 .jpg" alt="Cyber Adventure">
+            <div class="product-details">
+                <h3 class="product-title">Call of Duty Black Ops 6</h3>
+                
+                <a href="enquire.html" target="_blank" class="buy-now">
+                    <button class="buy-now">Buy Now</button>
+                </a>
+                
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="hot-strip">HOT</div>
+            <img src="Black myth wukong.jpg" alt="Space Wars">
+            <div class="product-details">
+                <h3 class="product-title">Black myth wukong</h3>
+                
+                
+                <a href="enquire.html" target="_blank" class="buy-now">
+                    <button class="buy-now">Buy Now</button>
+                </a>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="hot-strip">HOT</div>
+            <img src="Avatar Frontiers of Pandora.jpg" alt="Adventure Island">
+            <div class="product-details">
+                <h3 class="product-title">Avatar Frontiers of Pandora</h3>
+            
+                <button class="buy-now">Buy Now</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="hot-strip">HOT</div>
+            <img src="FIFA 25.jpg" alt="Adventure Island">
+            <div class="product-details">
+                <h3 class="product-title">FIFA 25</h3>
+               
+                
+                <a href="enquire.html" target="_blank" class="buy-now">
+                    <button class="buy-now">Buy Now</button>
+                </a>
+            </div>
+        </div>
+    </div>
+        
+    <footer class="footer">
+        <p>&copy; 2024 Game Store. All Rights Reserved.</p>
+        <div class="social-icons">
+         
+            <a href="https://www.instagram.com/anshul_store/" target="_blank" rel="noopener noreferrer" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
+    </footer>
+    
+    <!-- Floating Symbol -->
+    <a href="whatsapp.html" class="floating-symbol" target="_blank" title="Click me!">
+        <img src="Whatsapp.png" alt="Floating Button" />
+    </a>
+    
+</html>
